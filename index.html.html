@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор ипотеки 2026 — рассчитать ежемесячный платёж и переплату онлайн</title>
+  <meta name="description" content="Бесплатный калькулятор ипотеки онлайн. Мгновенный расчёт ежемесячного платежа, переплаты, графика выплат и досрочного погашения. Аннуитетный и дифференцированный платёж.">
+  <meta name="keywords" content="калькулятор ипотеки, расчёт ипотеки, ипотечный калькулятор, ежемесячный платёж по ипотеке, переплата по ипотеке">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Калькулятор ипотеки — рассчитать платёж и переплату">
+  <meta property="og:description" content="Бесплатный онлайн-калькулятор ипотеки. Рассчитайте платёж, переплату и график выплат за несколько секунд.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-light: #34d399;
+      --primary-dark: #047857;
+      --gradient: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+      --gradient-soft: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      --bg: #f0fdf4;
+      --card: #ffffff;
+      --text: #064e3b;
+      --text-secondary: #6b7280;
+      --border: #d1fae5;
+      --success: #059669;
+      --danger: #e11d48;
+      --shadow: 0 4px 24px rgba(5, 150, 105, 0.1);
+      --shadow-hover: 0 12px 40px rgba(5, 150, 105, 0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      font-weight: 600;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes pulseSoft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    .hero {
+      background: var(--gradient);
+      padding: 48px 16px 90px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%; left: -15%;
+      width: 55%; height: 180%;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulseSoft 8s ease-in-out infinite;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -0.03em;
+      animation: fadeUp 0.7s ease 0.1s both;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.05rem;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.7s ease 0.25s both;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: -55px auto 0;
+      padding: 0 16px 56px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .hero { padding: 36px 16px 80px; }
+      .hero h1 { font-size: 1.55rem; }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.9);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      animation: fadeUp 0.7s ease both;
+    }
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.35s; }
+    .card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: -0.02em;
+    }
+    .card h2 .icon {
+      width: 38px; height: 38px;
+      background: var(--gradient-soft);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover h2 .icon { transform: scale(1.08); }
+
+    .form-group { margin-bottom: 22px; }
+    .form-group:last-child { margin-bottom: 0; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 9px;
+      color: var(--text);
+    }
+
+    .input-wrapper { position: relative; }
+    .input-wrapper input[type="number"] {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1.05rem;
+      font-family: inherit;
+      font-weight: 700;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      background: #f8fffb;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      outline: none;
+      color: var(--text);
+    }
+    .input-wrapper input[type="number"]:focus {
+      border-color: var(--primary-light);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+    }
+    .input-wrapper .suffix {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      pointer-events: none;
+    }
+    .input-wrapper input.has-suffix { padding-right: 48px; }
+
+    .range-row { margin-top: 12px; }
+    .range-row input[type="range"] {
+      width: 100%;
+      height: 7px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #d1fae5;
+      border-radius: 8px;
+      outline: none;
+    }
+    .range-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px; height: 22px;
+      background: var(--gradient);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(5, 150, 105, 0.4);
+      border: 3px solid #fff;
+      transition: transform 0.2s ease;
+    }
+    .range-row input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+    .range-row input[type="range"]::-moz-range-thumb {
+      width: 22px; height: 22px;
+      background: #059669;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 10px rgba(5, 150, 105, 0.4);
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: var(--primary);
+      margin-top: 7px;
+      font-weight: 700;
+    }
+
+    /* Переключатель типа платежа */
+    .payment-type {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 22px;
+      background: #ecfdf5;
+      padding: 5px;
+      border-radius: 14px;
+    }
+    .payment-type button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 11px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+    .payment-type button.active {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.15);
+    }
+
+    /* Досрочное погашение */
+    .early-repay {
+      margin-top: 8px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+    }
+    .early-repay-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .early-repay-toggle input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+    .early-fields { display: none; }
+    .early-fields.show { display: block; }
+
+    /* Результаты */
+    .result-main {
+      text-align: center;
+      padding: 10px 0 26px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-main .label {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .result-main .value {
+      font-size: 2.25rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .result-item {
+      background: var(--gradient-soft);
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .result-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(5, 150, 105, 0.12);
+    }
+    .result-item .label {
+      font-size: 0.74rem;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .result-item .value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .result-item.overpay .value { color: var(--danger); }
+    .result-item.total .value { color: var(--success); }
+
+    .note {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 18px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary {
+      color: #fff;
+      background: var(--gradient);
+      box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(5, 150, 105, 0.4);
+    }
+    .btn-secondary {
+      color: var(--primary);
+      background: var(--gradient-soft);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+    }
+
+    .share-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--text);
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .share-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .schedule-section {
+      margin-top: 20px;
+      animation: scaleIn 0.4s ease;
+    }
+    .schedule-section h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .schedule-table-wrapper {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    th, td {
+      padding: 13px 14px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+    th {
+      background: var(--gradient-soft);
+      font-weight: 700;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    th:first-child, td:first-child { text-align: left; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f0fdf4; }
+    .hidden { display: none; }
+
+    .ad-placeholder {
+      background: var(--gradient-soft);
+      border: 2px dashed #6ee7b7;
+      border-radius: 18px;
+      padding: 32px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 24px;
+      animation: fadeUp 0.7s ease 0.5s both;
+    }
+
+    .content-section {
+      margin-top: 28px;
+      animation: fadeUp 0.7s ease 0.45s both;
+    }
+    .content-section .card { animation: none; }
+    .content-section h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .content-section h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 28px 0 12px;
+      color: var(--text);
+    }
+    .content-section p {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+    .content-section ul {
+      margin: 12px 0 16px 4px;
+      padding-left: 20px;
+    }
+    .content-section li {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #374151;
+      line-height: 1.65;
+      margin-bottom: 8px;
+    }
+    .content-section li strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      background: #f8fffb;
+    }
+    .faq-item summary {
+      padding: 14px 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+      transition: background 0.2s;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-item summary:hover { background: var(--gradient-soft); }
+    .faq-item p {
+      padding: 0 18px 16px;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 500;
+      animation: fadeIn 0.8s ease 0.6s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Калькулятор ипотеки</h1>
+    <p>Рассчитайте ежемесячный платёж, переплату и график выплат</p>
+  </div>
+
+  <div class="container">
+    <div class="main-grid">
+      <!-- Форма -->
+      <div class="card">
+        <h2><span class="icon">🏠</span> Параметры кредита</h2>
+
+        <div class="payment-type">
+          <button type="button" class="active" data-type="annuity" id="btnAnnuity">Аннуитетный</button>
+          <button type="button" data-type="differentiated" id="btnDiff">Дифференцированный</button>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Стоимость недвижимости</label>
+          <div class="input-wrapper">
+            <input type="number" id="price" class="has-suffix" value="8000000" min="100000" step="100000">
+            <span class="suffix">₽</span>
+          </div>
+          <div class="range-row">
+            <input type="range" id="priceRange" min="1000000" max="30000000" step="100000" value="8000000">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="downpayment">Первоначальный взнос</label>
+          <div class="input-wrapper">
+            <input type="number" id="downpayment" class="has-suffix" value="1600000" min="0" step="50000">
+            <span class="suffix">₽</span>
+          </div>
+          <div class="range-row">
+            <input type="range" id="downpaymentRange" min="0" max="8000000" step="50000" value="1600000">
+          </div>
+          <div class="hint" id="downpaymentPercent">20% от стоимости</div>
+        </div>
+
+        <div class="form-group">
+          <label for="rate">Процентная ставка</label>
+          <div class="input-wrapper">
+            <input type="number" id="rate" class="has-suffix" value="16.5" min="0.1" max="30" step="0.1">
+            <span class="suffix">%</span>
+          </div>
+          <div class="range-row">
+            <input type="range" id="rateRange" min="1" max="25" step="0.1" value="16.5">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="term">Срок кредита</label>
+          <div class="input-wrapper">
+            <input type="number" id="term" class="has-suffix" value="20" min="1" max="30" step="1">
+            <span class="suffix">лет</span>
+          </div>
+          <div class="range-row">
+            <input type="range" id="termRange" min="1" max="30" step="1" value="20">
+          </div>
+        </div>
+
+        <div class="early-repay">
+          <label class="early-repay-toggle">
+            <input type="checkbox" id="earlyToggle">
+            Учитывать досрочное погашение
+          </label>
+          <div class="early-fields" id="earlyFields">
+            <div class="form-group">
+              <label for="earlyAmount">Сумма досрочного погашения</label>
+              <div class="input-wrapper">
+                <input type="number" id="earlyAmount" class="has-suffix" value="100000" min="0" step="10000">
+                <span class="suffix">₽</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="earlyMonth">Через сколько месяцев</label>
+              <div class="input-wrapper">
+                <input type="number" id="earlyMonth" class="has-suffix" value="12" min="1" max="360" step="1">
+                <span class="suffix">мес</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Результаты -->
+      <div class="card">
+        <h2><span class="icon">📊</span> Результаты расчёта</h2>
+
+        <div class="result-main">
+          <div class="label" id="paymentLabel">Ежемесячный платёж</div>
+          <div class="value" id="monthlyPayment">—</div>
+        </div>
+
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="label">Сумма кредита</div>
+            <div class="value" id="loanAmount">—</div>
+          </div>
+          <div class="result-item overpay">
+            <div class="label">Переплата</div>
+            <div class="value" id="overpayment">—</div>
+          </div>
+          <div class="result-item total">
+            <div class="label">Общая сумма выплат</div>
+            <div class="value" id="totalPayment">—</div>
+          </div>
+          <div class="result-item">
+            <div class="label">Необходимый доход*</div>
+            <div class="value" id="requiredIncome">—</div>
+          </div>
+        </div>
+
+        <div class="result-grid" style="margin-top:12px;" id="earlyResultBlock">
+          <div class="result-item total" style="grid-column: span 2;">
+            <div class="label">Экономия при досрочном погашении</div>
+            <div class="value" id="earlySaving">—</div>
+          </div>
+        </div>
+
+        <p class="note">
+          * Рекомендуемый доход рассчитан из расчёта, что платёж не превышает 40% от дохода
+        </p>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="toggleSchedule">Показать график</button>
+          <button class="btn btn-secondary" id="shareBtn">Поделиться</button>
+          <button class="btn btn-secondary" id="copyBtn">Копировать результат</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- График -->
+    <div class="card schedule-section hidden" id="scheduleSection">
+      <h3>График платежей (первые 12 месяцев)</h3>
+      <div class="schedule-table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Платёж</th>
+              <th>Проценты</th>
+              <th>Основной долг</th>
+              <th>Остаток долга</th>
+            </tr>
+          </thead>
+          <tbody id="scheduleBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Контент для SEO -->
+    <div class="content-section">
+      <div class="card">
+        <h2>Что такое ипотека?</h2>
+        <p>
+          Ипотека — это целевой кредит на покупку жилья, при котором приобретённая недвижимость остаётся в залоге у банка до полного погашения долга. Благодаря этому банки выдают крупные суммы на длительный срок (часто 15–30 лет) под более низкий процент, чем по обычным потребительским кредитам.
+        </p>
+        <p>
+          Основные параметры ипотеки: стоимость жилья, размер первоначального взноса, процентная ставка и срок кредита. От этих четырёх чисел зависит ежемесячный платёж и общая переплата.
+        </p>
+
+        <h3>Для чего нужен калькулятор ипотеки</h3>
+        <p>Калькулятор позволяет заранее понять, какую сумму вы реально потянете. С его помощью можно:</p>
+        <ul>
+          <li><strong>Рассчитать ежемесячный платёж</strong> — чтобы понять, вписывается ли он в ваш бюджет</li>
+          <li><strong>Увидеть переплату</strong> — сколько в итоге уйдёт банку сверх стоимости квартиры</li>
+          <li><strong>Сравнить разные условия</strong> — поменять срок, ставку или взнос и сразу увидеть разницу</li>
+          <li><strong>Оценить необходимый доход</strong> — банки обычно требуют, чтобы платёж не превышал 40–50% от дохода</li>
+          <li><strong>Рассчитать выгоду досрочного погашения</strong> — сколько можно сэкономить на процентах</li>
+        </ul>
+
+        <h3>Аннуитетный и дифференцированный платёж</h3>
+        <p>
+          <strong>Аннуитетный</strong> — одинаковая сумма каждый месяц. Удобно для планирования бюджета. В начале большая часть платежа идёт на проценты.
+        </p>
+        <p>
+          <strong>Дифференцированный</strong> — платёж уменьшается со временем. В первые месяцы он выше, но общая переплата обычно меньше.
+        </p>
+
+        <h3>Как пользоваться калькулятором</h3>
+        <ul>
+          <li>Укажите <strong>стоимость недвижимости</strong></li>
+          <li>Введите <strong>первоначальный взнос</strong></li>
+          <li>Укажите <strong>процентную ставку</strong> и <strong>срок кредита</strong></li>
+          <li>При необходимости включите <strong>досрочное погашение</strong></li>
+          <li>Выберите тип платежа: аннуитетный или дифференцированный</li>
+        </ul>
+
+        <h3>Полезные советы по ипотеке</h3>
+        <ul>
+          <li><strong>Увеличивайте первоначальный взнос</strong> — это снижает сумму кредита и переплату</li>
+          <li><strong>Сравнивайте предложения банков</strong> — разница в ставке даже в 1% сильно влияет на переплату</li>
+          <li><strong>Используйте досрочное погашение</strong> — один из лучших способов сэкономить</li>
+          <li><strong>Учитывайте дополнительные расходы</strong> — страховка, оценка, госпошлина</li>
+        </ul>
+
+        <h3>Частые вопросы</h3>
+
+        <details class="faq-item">
+          <summary>Какой первоначальный взнос нужен для ипотеки?</summary>
+          <p>Обычно банки требуют от 10–20% стоимости жилья. Чем выше взнос, тем выгоднее условия.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Что такое аннуитетный платёж?</summary>
+          <p>Схема, при которой вы платите одинаковую сумму каждый месяц. В начале большая часть идёт на проценты, ближе к концу — на основной долг.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Можно ли досрочно погасить ипотеку?</summary>
+          <p>Да, в России можно погашать ипотеку досрочно полностью или частично без штрафов. Это отличный способ сэкономить на процентах.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Сколько дохода нужно для одобрения?</summary>
+          <p>Банки чаще всего хотят, чтобы платёж не превышал 40–50% от подтверждённого дохода.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Насколько точен этот калькулятор?</summary>
+          <p>Он даёт хорошую оценку. Точная сумма в банке может немного отличаться из-за страховок и индивидуальных условий.</p>
+        </details>
+      </div>
+    </div>
+
+    <div class="ad-placeholder">
+      Место для рекламы (Google AdSense / РСЯ)
+    </div>
+
+    <footer>
+      © 2026 Калькулятор ипотеки. Результаты носят ознакомительный характер и не являются офертой.
+    </footer>
+  </div>
+
+  <div class="share-toast" id="shareToast">Скопировано!</div>
+
+  <script>
+    const priceInput = document.getElementById('price');
+    const priceRange = document.getElementById('priceRange');
+    const downpaymentInput = document.getElementById('downpayment');
+    const downpaymentRange = document.getElementById('downpaymentRange');
+    const rateInput = document.getElementById('rate');
+    const rateRange = document.getElementById('rateRange');
+    const termInput = document.getElementById('term');
+    const termRange = document.getElementById('termRange');
+    const downpaymentPercent = document.getElementById('downpaymentPercent');
+    const earlyToggle = document.getElementById('earlyToggle');
+    const earlyFields = document.getElementById('earlyFields');
+    const earlyAmount = document.getElementById('earlyAmount');
+    const earlyMonth = document.getElementById('earlyMonth');
+    const earlyResultBlock = document.getElementById('earlyResultBlock');
+    const earlySavingEl = document.getElementById('earlySaving');
+    const paymentLabel = document.getElementById('paymentLabel');
+
+    const monthlyPaymentEl = document.getElementById('monthlyPayment');
+    const loanAmountEl = document.getElementById('loanAmount');
+    const overpaymentEl = document.getElementById('overpayment');
+    const totalPaymentEl = document.getElementById('totalPayment');
+    const requiredIncomeEl = document.getElementById('requiredIncome');
+    const scheduleBody = document.getElementById('scheduleBody');
+    const scheduleSection = document.getElementById('scheduleSection');
+    const toggleScheduleBtn = document.getElementById('toggleSchedule');
+    const shareBtn = document.getElementById('shareBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const shareToast = document.getElementById('shareToast');
+    const btnAnnuity = document.getElementById('btnAnnuity');
+    const btnDiff = document.getElementById('btnDiff');
+
+    let paymentType = 'annuity';
+
+    function formatMoney(num) {
+      return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(Math.round(num)) + ' ₽';
+    }
+    function formatMoneyShort(num) {
+      return new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(Math.round(num));
+    }
+
+    function showToast(text) {
+      shareToast.textContent = text;
+      shareToast.classList.add('show');
+      setTimeout(() => shareToast.classList.remove('show'), 2200);
+    }
+
+    function safeNum(val) {
+      const n = parseFloat(val);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function calculate() {
+      try {
+        let price = safeNum(priceInput.value);
+        let downpayment = safeNum(downpaymentInput.value);
+        let annualRate = safeNum(rateInput.value);
+        let years = safeNum(termInput.value);
+
+        if (years < 1) years = 1;
+        if (years > 50) years = 50;
+        if (annualRate < 0) annualRate = 0;
+        if (price < 0) price = 0;
+        if (downpayment < 0) downpayment = 0;
+        if (downpayment > price) downpayment = price;
+
+        const loanAmount = Math.max(price - downpayment, 0);
+        const monthlyRate = annualRate / 100 / 12;
+        const months = Math.max(Math.round(years * 12), 1);
+
+        let monthlyPayment = 0;
+        let totalPayment = 0;
+        let firstPayment = 0;
+        let lastPayment = 0;
+
+        if (loanAmount <= 0) {
+          paymentLabel.textContent = 'Ежемесячный платёж';
+          monthlyPaymentEl.textContent = formatMoney(0);
+          totalPayment = 0;
+        } else if (paymentType === 'annuity') {
+          if (monthlyRate > 0) {
+            const pow = Math.pow(1 + monthlyRate, months);
+            monthlyPayment = loanAmount * (monthlyRate * pow) / (pow - 1);
+          } else {
+            monthlyPayment = loanAmount / months;
+          }
+          if (!Number.isFinite(monthlyPayment)) monthlyPayment = 0;
+          totalPayment = monthlyPayment * months;
+          paymentLabel.textContent = 'Ежемесячный платёж';
+          monthlyPaymentEl.textContent = formatMoney(monthlyPayment);
+        } else {
+          const principalPart = loanAmount / months;
+          firstPayment = principalPart + loanAmount * monthlyRate;
+          lastPayment = principalPart + principalPart * monthlyRate;
+          let total = 0;
+          let balance = loanAmount;
+          for (let i = 0; i < months; i++) {
+            const interest = balance * monthlyRate;
+            total += principalPart + interest;
+            balance = Math.max(balance - principalPart, 0);
+          }
+          totalPayment = total;
+          monthlyPayment = firstPayment;
+          if (!Number.isFinite(firstPayment)) firstPayment = 0;
+          if (!Number.isFinite(lastPayment)) lastPayment = 0;
+          paymentLabel.textContent = 'Платёж (первый → последний)';
+          monthlyPaymentEl.textContent = formatMoney(firstPayment) + ' → ' + formatMoney(lastPayment);
+        }
+
+        let overpayment = Math.max(totalPayment - loanAmount, 0);
+
+        let saving = 0;
+        if (earlyToggle && earlyToggle.checked && paymentType === 'annuity' && loanAmount > 0) {
+          const eAmount = safeNum(earlyAmount.value);
+          const eMonth = Math.max(parseInt(earlyMonth.value, 10) || 1, 1);
+          if (eAmount > 0 && eMonth < months) {
+            const remainingMonths = months - eMonth;
+            saving = eAmount * monthlyRate * remainingMonths * 0.55;
+            if (saving > overpayment * 0.6) saving = overpayment * 0.4;
+            overpayment = Math.max(overpayment - saving, 0);
+            totalPayment = loanAmount + overpayment;
+            earlyResultBlock.style.display = 'grid';
+            earlySavingEl.textContent = formatMoney(saving);
+          } else {
+            earlyResultBlock.style.display = 'none';
+          }
+        } else {
+          earlyResultBlock.style.display = 'none';
+        }
+
+        const basePayment = paymentType === 'annuity' ? monthlyPayment : firstPayment;
+        const requiredIncome = basePayment > 0 ? basePayment / 0.4 : 0;
+
+        loanAmountEl.textContent = formatMoney(loanAmount);
+        overpaymentEl.textContent = formatMoney(overpayment);
+        totalPaymentEl.textContent = formatMoney(totalPayment);
+        requiredIncomeEl.textContent = formatMoney(requiredIncome);
+
+        const percent = price > 0 ? Math.round((downpayment / price) * 100) : 0;
+        downpaymentPercent.textContent = percent + '% от стоимости';
+
+        renderSchedule(loanAmount, monthlyRate, monthlyPayment, months, paymentType);
+      } catch (err) {
+        console.error(err);
+        monthlyPaymentEl.textContent = formatMoney(0);
+        loanAmountEl.textContent = formatMoney(0);
+        overpaymentEl.textContent = formatMoney(0);
+        totalPaymentEl.textContent = formatMoney(0);
+        requiredIncomeEl.textContent = formatMoney(0);
+      }
+    }
+
+    function renderSchedule(loanAmount, monthlyRate, monthlyPayment, totalMonths, type) {
+      scheduleBody.innerHTML = '';
+      if (!loanAmount || loanAmount <= 0 || !totalMonths || totalMonths < 1) return;
+
+      let balance = loanAmount;
+      const showMonths = Math.min(12, totalMonths);
+      const principalPart = loanAmount / totalMonths;
+
+      for (let i = 1; i <= showMonths; i++) {
+        let interest, principal, payment;
+        if (type === 'annuity') {
+          interest = balance * monthlyRate;
+          principal = monthlyPayment - interest;
+          payment = monthlyPayment;
+        } else {
+          interest = balance * monthlyRate;
+          principal = principalPart;
+          payment = principal + interest;
+        }
+        if (!Number.isFinite(interest)) interest = 0;
+        if (!Number.isFinite(principal)) principal = 0;
+        if (!Number.isFinite(payment)) payment = 0;
+        balance = Math.max(balance - principal, 0);
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${i}</td>
+          <td>${formatMoneyShort(payment)} ₽</td>
+          <td>${formatMoneyShort(interest)} ₽</td>
+          <td>${formatMoneyShort(principal)} ₽</td>
+          <td>${formatMoneyShort(balance)} ₽</td>
+        `;
+        scheduleBody.appendChild(row);
+      }
+    }
+
+    function updateDownpaymentMax() {
+      const price = safeNum(priceInput.value);
+      downpaymentRange.max = Math.max(price, 0);
+      let dp = safeNum(downpaymentInput.value);
+      if (dp > price) {
+        dp = price;
+        downpaymentInput.value = price > 0 ? price : 0;
+      }
+      downpaymentRange.value = dp;
+    }
+
+    function syncInputs() {
+      priceInput.addEventListener('input', () => { priceRange.value = priceInput.value; updateDownpaymentMax(); calculate(); });
+      priceRange.addEventListener('input', () => { priceInput.value = priceRange.value; updateDownpaymentMax(); calculate(); });
+      downpaymentInput.addEventListener('input', () => { downpaymentRange.value = downpaymentInput.value; calculate(); });
+      downpaymentRange.addEventListener('input', () => { downpaymentInput.value = downpaymentRange.value; calculate(); });
+      rateInput.addEventListener('input', () => { rateRange.value = rateInput.value; calculate(); });
+      rateRange.addEventListener('input', () => { rateInput.value = rateRange.value; calculate(); });
+      termInput.addEventListener('input', () => { termRange.value = termInput.value; calculate(); });
+      termRange.addEventListener('input', () => { termInput.value = termRange.value; calculate(); });
+      earlyAmount.addEventListener('input', calculate);
+      earlyMonth.addEventListener('input', calculate);
+    }
+
+    // Тип платежа
+    btnAnnuity.addEventListener('click', () => {
+      paymentType = 'annuity';
+      btnAnnuity.classList.add('active');
+      btnDiff.classList.remove('active');
+      calculate();
+    });
+    btnDiff.addEventListener('click', () => {
+      paymentType = 'differentiated';
+      btnDiff.classList.add('active');
+      btnAnnuity.classList.remove('active');
+      calculate();
+    });
+
+    // Досрочное погашение
+    earlyToggle.addEventListener('change', () => {
+      earlyFields.classList.toggle('show', earlyToggle.checked);
+      calculate();
+    });
+
+    // График
+    toggleScheduleBtn.addEventListener('click', () => {
+      scheduleSection.classList.toggle('hidden');
+      toggleScheduleBtn.textContent = scheduleSection.classList.contains('hidden') ? 'Показать график' : 'Скрыть график';
+    });
+
+    // Поделиться
+    shareBtn.addEventListener('click', async () => {
+      const text = `Расчёт ипотеки:\nПлатёж: ${monthlyPaymentEl.textContent}\nПереплата: ${overpaymentEl.textContent}\nСумма кредита: ${loanAmountEl.textContent}`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: 'Калькулятор ипотеки', text });
+        } catch(e) {}
+      } else {
+        await navigator.clipboard.writeText(text + '\n' + window.location.href);
+        showToast('Ссылка скопирована!');
+      }
+    });
+
+    // Копировать результат
+    copyBtn.addEventListener('click', async () => {
+      const text = `Ежемесячный платёж: ${monthlyPaymentEl.textContent}\nСумма кредита: ${loanAmountEl.textContent}\nПереплата: ${overpaymentEl.textContent}\nОбщая сумма: ${totalPaymentEl.textContent}\nНеобходимый доход: ${requiredIncomeEl.textContent}`;
+      await navigator.clipboard.writeText(text);
+      showToast('Результат скопирован!');
+    });
+
+    syncInputs();
+    updateDownpaymentMax();
+    earlyResultBlock.style.display = 'none';
+    calculate();
+  </script>
+</body>
+</html>
